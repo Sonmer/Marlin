@@ -869,6 +869,13 @@ inline void tmc_standby_setup() {
  *    • Max7219
  */
 void setup() {
+  #ifdef ALFAWISE_UX0
+    // Longer3D board mosfets are passing by default
+    // thermalManager.init() can't be used so early.
+    OUT_WRITE_OD(FAN_PIN, 0);
+    OUT_WRITE_OD(HEATER_0_PIN, 0);
+    OUT_WRITE_OD(HEATER_BED_PIN, 0);
+  #endif
 
   tmc_standby_setup();  // TMC Low Power Standby pins must be set early or they're not usable
 
